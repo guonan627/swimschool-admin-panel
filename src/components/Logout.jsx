@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 
 class Logout extends Component {
   componentDidMount() {
-    this.props.logout()
+    console.log('Logout')
     window.location = '/'
   }
   render() {
-    return null
+    return <h1>Logging you out...</h1>
   }
 }
 

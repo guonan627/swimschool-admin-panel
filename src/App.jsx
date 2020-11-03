@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Footer from './components/Footer'
 import NavBar from './components/NavBar'
 import Login from './components/Login'
-import Classes from './components/Classes'
+import ClassesList from './components/ClassesList'
 import ProgramsList from './components/ProgramsList'
 import Students from './components/Students'
 import Register from './components/Register'
@@ -24,18 +24,18 @@ export class App extends Component {
 
   render() {
     return (
-      <div className='container'>
+      <div className="container-xl bg-light">
         <BrowserRouter>
           <NavBar user={this.state.user} handleLogout={this.handleLogout} />
           <main>
             <Switch>
-              <Route path='/' component={ProgramsList} exact />
-              <Route path='/classes' component={Classes} />
-              <Route path='/students' component={Students} />
-              <Route path='/profile' component={Profile} />
-              <Route path='/login' component={Login} />
-              <Route path='/logout' component={Logout} />
-              <Route path='/register' component={Register} />
+              <Route path="/" component={ProgramsList} exact />
+              <Route path="/classes" component={ClassesList} />
+              <Route path="/students" component={Students} />
+              <Route path="/profile" component={Profile} />
+              <Route path="/login" component={Login} />
+              <Route path="/logout" component={Logout} />
+              <Route path="/register" component={Register} />
             </Switch>
           </main>
           <Footer />
