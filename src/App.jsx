@@ -8,34 +8,50 @@ import ProgramsList from './components/ProgramsList'
 import Students from './components/Students'
 import Register from './components/Register'
 import Profile from './components/Profile'
-import Logout from './components/Logout'
+import ProgramForm from './components/ProgramForm'
+import ClassForm from './components/ClassForm'
 
 export class App extends Component {
   state = {
-    user: {
-      id: '123456',
-      name: 'Nan',
-    },
+    user: null,
   }
 
-  handleLogout() {
+  componentDidMount() {
+    if (localStorage.getItem('user')) {
+      const user = JSON.parse(localStorage.getItem('user'))
+      this.setState({ user: user })
+    }
+  }
+
+  handleLogin = (user) => {
+    this.setState({ user: user })
+  }
+
+  handleLogout = () => {
     this.setState({ user: null })
   }
 
   render() {
     return (
-      <div className="container-xl bg-light">
+      <div className='container bg-light'>
         <BrowserRouter>
           <NavBar user={this.state.user} handleLogout={this.handleLogout} />
           <main>
             <Switch>
-              <Route path="/" component={ProgramsList} exact />
-              <Route path="/classes" component={ClassesList} />
-              <Route path="/students" component={Students} />
-              <Route path="/profile" component={Profile} />
-              <Route path="/login" component={Login} />
-              <Route path="/logout" component={Logout} />
-              <Route path="/register" component={Register} />
+              <Route path='/programs/:id' component={ProgramForm} />
+              <Route path='/classes/:id' component={ClassForm} />
+              <Route
+                path='/login'
+                render={(props) => (
+                  <Login {...props} handleLogin={this.handleLogin} />
+                )}
+              />
+              <Route path='/register' component={Register} />
+              <Route path='/profile' component={Profile} />
+              <Route path='/programs' component={ProgramsList} />
+              <Route path='/classes' component={ClassesList} />
+              <Route path='/students' component={Students} />
+              <Route path='/' component={ProgramsList} exact />
             </Switch>
           </main>
           <Footer />

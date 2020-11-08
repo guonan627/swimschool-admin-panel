@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import Classes from './Classes'
+import ClassCard from './ClassCard'
 import { baseUrl } from '../config.json'
 
 export class ClassesList extends Component {
@@ -17,9 +17,9 @@ export class ClassesList extends Component {
     fetchClasses()
   }
 
-  deleteClass = classItem => {
+  deleteClass = (classItem) => {
     const classes = this.state.classes.filter(
-      c => c.class_id !== classItem.class_id
+      (c) => c.class_id !== classItem.class_id
     )
     this.setState({ classes })
   }
@@ -27,17 +27,17 @@ export class ClassesList extends Component {
   render() {
     const data = this.state.classes
     if (data.length === 0)
-      return <h2 className="p-5">The class list is empty</h2>
+      return <h2 className='p-5'>The class list is empty</h2>
     return (
-      <div className="p-1">
-        <h2 className="text-center">Classes</h2>
-        <div className="row">
-          {data.map(c => (
+      <div className='p-1'>
+        <h2 className='text-center'>Classes</h2>
+        <div className='row'>
+          {data.map((c) => (
             <div
               key={c.class_id}
-              className="col-sm-12 col-md-6 col-lg-4 col-xl-4 p-3"
+              className='col-sm-12 col-md-6 col-lg-4 col-xl-4 p-3'
             >
-              <Classes c={c} deleteClass={this.deleteClass} />
+              <ClassCard c={c} deleteClass={this.deleteClass} />
             </div>
           ))}
         </div>

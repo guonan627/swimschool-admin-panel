@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { baseUrl } from '../config.json'
 
@@ -20,9 +21,9 @@ export class Programs extends Component {
     fetchPrograms()
   }
 
-  deleteProgram = program => {
+  deleteProgram = (program) => {
     const programs = this.state.programs.filter(
-      p => p.program_id !== program.program_id
+      (p) => p.program_id !== program.program_id
     )
     this.setState({ programs })
   }
@@ -32,9 +33,9 @@ export class Programs extends Component {
     if (data.length === 0) return <h2>The program list is empty</h2>
     return (
       <Fragment>
-        <h2 className="text-center">Programs</h2>
-        <button className="btn btn-primary btn-md">create</button>
-        <table className="table">
+        <h2 className='text-center'>Programs</h2>
+        <button className='btn btn-primary btn-md'>create</button>
+        <table className='table'>
           <thead>
             <tr>
               <th>program</th>
@@ -46,20 +47,23 @@ export class Programs extends Component {
             </tr>
           </thead>
           <tbody>
-            {data.map(program => (
+            {data.map((program) => (
               <tr key={program.program_id}>
-                <td width="30%">{program.program_name}</td>
-                <td width="10%">{program.program_level}</td>
-                <td width="10%">{program.price}</td>
-                <td width="40%">{program.prerequisites}</td>
-                <td width="10%">{program.duration}</td>
+                <td width='30%'>{program.program_name}</td>
+                <td width='10%'>{program.program_level}</td>
+                <td width='10%'>{program.price}</td>
+                <td width='40%'>{program.prerequisites}</td>
+                <td width='10%'>{program.duration}</td>
                 <td>
-                  <button className="btn btn-info btn-sm">update</button>
+                  {/* <button className="btn btn-info btn-sm">update</button> */}
+                  <Link to={`/programs/${program.program_id}`}>
+                    <div className='btn btn-info btn-sm'>Update</div>
+                  </Link>
                 </td>
                 <td>
                   <button
                     onClick={() => this.deleteProgram(program)}
-                    className="btn btn-danger btn-sm"
+                    className='btn btn-danger btn-sm'
                   >
                     delete
                   </button>
