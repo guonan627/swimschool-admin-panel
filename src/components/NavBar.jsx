@@ -1,11 +1,15 @@
 import React, { Component, Fragment } from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import { showAlert } from '../utils/alerts'
 
 export class NavBar extends Component {
   handleLogout() {
     localStorage.removeItem('user')
     this.props.handleLogout()
-    window.location = '/'
+    showAlert('info', 'You have logged out')
+    setTimeout(() => {
+      window.location = '/'
+    }, 1000)
   }
 
   render() {
@@ -23,15 +27,6 @@ export class NavBar extends Component {
           id='navbarNavAltMarkup'
         >
           <div className='navbar-nav'>
-            <NavLink className='nav-item nav-link' to='/'>
-              Programs
-            </NavLink>
-            <NavLink className='nav-item nav-link' to='/classes'>
-              Classes
-            </NavLink>
-            <NavLink className='nav-item nav-link' to='/students'>
-              Students
-            </NavLink>
             {!this.props.user && (
               <Fragment>
                 <NavLink className='nav-item nav-link' to='/login'>
@@ -44,6 +39,15 @@ export class NavBar extends Component {
             )}
             {this.props.user && (
               <Fragment>
+                <NavLink className='nav-item nav-link' to='/'>
+                  Programs
+                </NavLink>
+                <NavLink className='nav-item nav-link' to='/classes'>
+                  Classes
+                </NavLink>
+                <NavLink className='nav-item nav-link' to='/students'>
+                  Students
+                </NavLink>
                 <NavLink className='nav-item nav-link' to='/profile'>
                   {this.props.user.name}
                 </NavLink>

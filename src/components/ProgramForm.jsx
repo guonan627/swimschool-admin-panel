@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { baseUrl } from '../config.json'
+import { showAlert } from '../utils/alerts'
 
 export class ProgramForm extends Component {
   state = {
@@ -13,8 +14,9 @@ export class ProgramForm extends Component {
     pics: '',
   }
 
-  // populate form with the program data from API
   componentDidMount() {
+    // if creating a new program, don't need to populate form
+    if (!this.props.match.params.id) return
     // get program_id from react-router-dom "match" props
     const url = `${baseUrl}/api/api.php?action=findprogram&program_id=${this.props.match.params.id}`
     const fetchProgram = async () => {
@@ -29,13 +31,17 @@ export class ProgramForm extends Component {
         pics: data.data.pics,
       })
     }
+    // populate form with the program data from API
     fetchProgram()
   }
 
   submitHandler = async (e) => {
     try {
       e.preventDefault()
-      const url = `${baseUrl}/api/api.php?action=editprogram&program_id=${this.props.match.params.id}`
+      // check if the page is creating a new program or updating an existing program (url contains /:id)
+      const url = this.props.match.params.id
+        ? `${baseUrl}/api/api.php?action=editprogram&program_id=${this.props.match.params.id}`
+        : `${baseUrl}/api/api.php?action=addprogram`
       const token = JSON.parse(localStorage.getItem('user')).token
       const formData = { ...this.state }
       const config = {
@@ -44,10 +50,13 @@ export class ProgramForm extends Component {
           Authorization: `Bearer ${token}`,
         },
       }
-      const res = await axios.post(url, formData, config)
-      console.log(res)
+      const { data } = await axios.post(url, formData, config)
+      if (data.success) {
+        showAlert('success', `Created program: ${this.state.program_name}`)
+        this.props.history.push('/')
+      }
     } catch (error) {
-      console.log(error)
+      console.log(error.response)
     }
   }
 
@@ -56,7 +65,7 @@ export class ProgramForm extends Component {
       <div className='row justify-content-center'>
         <div className='col-xs-12 col-md-8 col-xl-6'>
           <h2 className='text-center'>Program Details</h2>
-          <form onSubmit={this.submitHandler}>
+          <form onSubmit={this.submitHandler} className='was-validated'>
             <div className='form-group'>
               <label htmlFor='program_name'>Program Name</label>
               <input
@@ -67,7 +76,9 @@ export class ProgramForm extends Component {
                 onChange={(e) =>
                   this.setState({ program_name: e.target.value })
                 }
+                required
               ></input>
+              <div class='invalid-feedback'>Program Name is required</div>
             </div>
 
             <div className='form-group'>
@@ -78,7 +89,11 @@ export class ProgramForm extends Component {
                 style={{ minHeight: '10rem' }}
                 value={this.state.description}
                 onChange={(e) => this.setState({ description: e.target.value })}
+                required
               ></textarea>
+              <div class='invalid-feedback'>
+                Program Description is required
+              </div>
             </div>
 
             <div className='form-group'>
@@ -90,13 +105,16 @@ export class ProgramForm extends Component {
                 onChange={(e) =>
                   this.setState({ program_level: e.target.value })
                 }
+                required
               >
+                <option value=''>Please Select</option>
                 <option value='level 1'>Level 1</option>
                 <option value='level 2'>Level 2</option>
                 <option value='level 3'>Level 3</option>
                 <option value='level 4'>Level 4</option>
                 <option value='level 5'>Level 5</option>
               </select>
+              <div class='invalid-feedback'>Program Level is required</div>
             </div>
 
             <div className='form-group'>
@@ -107,7 +125,9 @@ export class ProgramForm extends Component {
                 id='price'
                 value={this.state.price}
                 onChange={(e) => this.setState({ price: e.target.value })}
+                required
               ></input>
+              <div class='invalid-feedback'>Price is required</div>
             </div>
 
             <div className='form-group'>
@@ -120,7 +140,9 @@ export class ProgramForm extends Component {
                 onChange={(e) =>
                   this.setState({ prerequisites: e.target.value })
                 }
+                pattern='.{0,200}'
               ></input>
+              <div class='invalid-feedback'>Prerequisites too long</div>
             </div>
 
             <div className='form-group'>
@@ -131,7 +153,9 @@ export class ProgramForm extends Component {
                 id='duration'
                 value={this.state.duration}
                 onChange={(e) => this.setState({ duration: e.target.value })}
+                required
               ></input>
+              <div class='invalid-feedback'>Duration is required</div>
             </div>
 
             <div className='form-group'>

@@ -45,7 +45,7 @@ export class ClassForm extends Component {
       <div className='row justify-content-center'>
         <div className='col-xs-12 col-md-8 col-xl-6'>
           <h2 className='text-center'>Class Details</h2>
-          <form onSubmit={this.submitHandler}>
+          <form onSubmit={this.submitHandler} className='was-validated'>
             <div className='form-group'>
               <label htmlFor='start_date'>Start Date</label>
               <input

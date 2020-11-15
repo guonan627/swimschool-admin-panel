@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import Footer from './components/Footer'
 import NavBar from './components/NavBar'
 import Login from './components/Login'
@@ -40,6 +40,7 @@ export class App extends Component {
             <Switch>
               <Route path='/programs/:id' component={ProgramForm} />
               <Route path='/classes/:id' component={ClassForm} />
+              <Route path='/newprogram' component={ProgramForm} />
               <Route
                 path='/login'
                 render={(props) => (
@@ -48,10 +49,21 @@ export class App extends Component {
               />
               <Route path='/register' component={Register} />
               <Route path='/profile' component={Profile} />
-              <Route path='/programs' component={ProgramsList} />
+              <Route
+                path='/programs'
+                render={(props) => (
+                  <ProgramsList {...props} user={this.state.user} />
+                )}
+              />
               <Route path='/classes' component={ClassesList} />
               <Route path='/students' component={Students} />
-              <Route path='/' component={ProgramsList} exact />
+              <Route exact path='/'>
+                {this.state.user ? (
+                  <Redirect to='/programs' />
+                ) : (
+                  <Login handleLogin={this.handleLogin} />
+                )}
+              </Route>
             </Switch>
           </main>
           <Footer />
