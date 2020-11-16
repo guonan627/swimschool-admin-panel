@@ -23,15 +23,21 @@ export class Login extends Component {
     try {
       const { data } = await axios.post(url, formData, config)
 
-      this.props.handleLogin(data.data)
-
       localStorage.setItem('user', JSON.stringify(data.data))
+
+      this.props.handleLogin(data.data)
 
       showAlert('success', 'You have successfully logged in')
 
       if (this.props.history) {
-        this.props.history.push('/programs')
-      }
+        this.props.history.push('/')
+      } 
+      // else {
+      //   setTimeout(() => {
+      //     window.location = '/'
+      //   }, 1000)
+      // }
+
     } catch (error) {
       const message = !error.response
         ? 'Network Error'
@@ -74,7 +80,7 @@ export class Login extends Component {
                 required
                 pattern='[\w\S]{4,50}'
               ></input>
-              <div class='invalid-feedback'>Password is invalid</div>
+              <div className='invalid-feedback'>Password is invalid</div>
             </div>
 
             <button

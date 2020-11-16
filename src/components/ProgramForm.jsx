@@ -78,7 +78,7 @@ export class ProgramForm extends Component {
                 }
                 required
               ></input>
-              <div class='invalid-feedback'>Program Name is required</div>
+              <div className='invalid-feedback'>Program Name is required</div>
             </div>
 
             <div className='form-group'>
@@ -91,7 +91,7 @@ export class ProgramForm extends Component {
                 onChange={(e) => this.setState({ description: e.target.value })}
                 required
               ></textarea>
-              <div class='invalid-feedback'>
+              <div className='invalid-feedback'>
                 Program Description is required
               </div>
             </div>
@@ -114,7 +114,7 @@ export class ProgramForm extends Component {
                 <option value='level 4'>Level 4</option>
                 <option value='level 5'>Level 5</option>
               </select>
-              <div class='invalid-feedback'>Program Level is required</div>
+              <div className='invalid-feedback'>Program Level is required</div>
             </div>
 
             <div className='form-group'>
@@ -127,7 +127,7 @@ export class ProgramForm extends Component {
                 onChange={(e) => this.setState({ price: e.target.value })}
                 required
               ></input>
-              <div class='invalid-feedback'>Price is required</div>
+              <div className='invalid-feedback'>Price is required</div>
             </div>
 
             <div className='form-group'>
@@ -142,7 +142,7 @@ export class ProgramForm extends Component {
                 }
                 pattern='.{0,200}'
               ></input>
-              <div class='invalid-feedback'>Prerequisites too long</div>
+              <div className='invalid-feedback'>Prerequisites too long</div>
             </div>
 
             <div className='form-group'>
@@ -155,7 +155,7 @@ export class ProgramForm extends Component {
                 onChange={(e) => this.setState({ duration: e.target.value })}
                 required
               ></input>
-              <div class='invalid-feedback'>Duration is required</div>
+              <div className='invalid-feedback'>Duration is required</div>
             </div>
 
             <div className='form-group'>
