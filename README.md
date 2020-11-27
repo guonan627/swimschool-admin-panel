@@ -1,3 +1,18 @@
+# Github Address
+
+- web app - https://github.com/guonan627/swimschool
+- Admin panel - https://github.com/guonan627/swimschool-admin-panel
+
+# Deployed Online
+
+- Web app is deployed on https://nanguo666.com/swimschool/ using VipControl shared web hosting(Apache)
+- Admin panel is deployed on https://swimschool-admin-panel.vercel.app/ using vercel.com(Nginx)
+
+# Installation Guidance
+
+- Type "npm install" in the terminal of targeted folder
+- Change api address in config.json
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -5,6 +20,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `npm install`
+
+Install the node_modules folder according to the dependencies in package.json
 
 ### `npm start`
 
