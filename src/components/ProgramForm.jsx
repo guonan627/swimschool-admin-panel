@@ -42,11 +42,14 @@ export class ProgramForm extends Component {
       const url = this.props.match.params.id
         ? `${baseUrl}/api/api.php?action=editprogram&program_id=${this.props.match.params.id}`
         : `${baseUrl}/api/api.php?action=addprogram`
+      
+      // When submit form, get token from localstorage
       const token = JSON.parse(localStorage.getItem('user')).token
       const formData = { ...this.state }
       const config = {
         headers: {
           'Content-Type': 'application/json',
+          // When sending HTTP request, include token in the authorisation header
           Authorization: `Bearer ${token}`,
         },
       }

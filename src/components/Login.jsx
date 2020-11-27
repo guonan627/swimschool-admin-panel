@@ -21,10 +21,10 @@ export class Login extends Component {
     }
 
     try {
-      const { data } = await axios.post(url, formData, config)
-
-      localStorage.setItem('user', JSON.stringify(data.data))
-
+      // data contains token, username, userid and role
+      const { data } = await axios.post(url, formData, config) 
+      // save all the user information in localstorage
+      localStorage.setItem('user', JSON.stringify(data.data)) 
       this.props.handleLogin(data.data)
 
       showAlert('success', 'You have successfully logged in')

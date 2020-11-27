@@ -17,6 +17,7 @@ export class App extends Component {
   }
 
   componentDidMount() {
+    // after app component is mounted, get user information from localstorage and save it into state
     if (localStorage.getItem('user')) {
       const user = JSON.parse(localStorage.getItem('user'))
       this.setState({ user: user })
