@@ -65,6 +65,7 @@ export class Login extends Component {
                 onChange={(e) => this.setState({ username: e.target.value })}
                 required
                 pattern='[\w]{1,50}'
+                placeholder="admin"
               ></input>
               <div className='invalid-feedback'>Username is invalid</div>
             </div>
@@ -79,6 +80,7 @@ export class Login extends Component {
                 onChange={(e) => this.setState({ password: e.target.value })}
                 required
                 pattern='[\w\S]{4,50}'
+                placeholder="admin"
               ></input>
               <div className='invalid-feedback'>Password is invalid</div>
             </div>
